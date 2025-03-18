@@ -16,26 +16,26 @@ function anAction() {
 
   promise1
     .then((message) => {
-      const div = document.createElement('div');
-
-      div.classList.add('message');
-      div.textContent = 'Promise was resolved!';
-      document.querySelector('body').append(div);
+      createDiv('Promise was resolved!');
     })
-    .catch((error) => {});
+    .catch((error) => {
+      createDiv('Promise was rejected!', 'error-message', error);
+    });
 
   promise2
     .then((message) => {})
     .catch((error) => {
-      const div = document.createElement('div');
-
-      div.classList.add('message');
-      div.classList.add('error-message');
-
-      div.textContent = 'Promise was rejected!';
-      document.body.append(div);
-      console.log('promise 2 error', error);
+      createDiv('Promise was rejected!', 'error-message', error);
     });
+
+  function createDiv(message, nameOfClass) {
+    const div = document.createElement('div');
+
+    div.classList.add('message');
+    div.classList.add(nameOfClass);
+    div.textContent = message;
+    document.querySelector('body').append(div);
+  }
 }
 
 anAction();
